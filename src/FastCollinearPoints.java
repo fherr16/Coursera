@@ -20,6 +20,8 @@ public class FastCollinearPoints {
       
       while (start < ordered.length) {
         int x = 1;
+        if (points[i].slopeTo(ordered[start]) == Double.NEGATIVE_INFINITY)
+          throw new IllegalArgumentException();
         while ( start + x < ordered.length && points[i].slopeTo(ordered[start]) == points[i].slopeTo(ordered[start+x])) x++;
         x--;
         if (x >= 2) {

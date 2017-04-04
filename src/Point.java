@@ -9,6 +9,10 @@ public class Point implements Comparable<Point> {
   
   private class SlopeOrderComparator implements Comparator<Point> {
     public int compare(Point thatOne, Point thisOne){
+      
+      if (thatOne == null || thisOne == null)
+        throw new NullPointerException();
+      
       double slopeWithThatOne, slopeWithThisOne;
       
       if ((xCoordinate == thatOne.xCoordinate) && (yCoordinate == thatOne.yCoordinate)) slopeWithThatOne = Double.NEGATIVE_INFINITY;
