@@ -22,13 +22,14 @@ public class Point implements Comparable<Point> {
       else 
         slopeWithThatOne = ((double) (thatOne.yCoordinate - yCoordinate)/(double) (thatOne.xCoordinate - xCoordinate));
       
-      if ((xCoordinate == thisOne.xCoordinate) && (yCoordinate == thisOne.yCoordinate)) slopeWithThisOne = Double.NEGATIVE_INFINITY;
+      if ((xCoordinate == thisOne.xCoordinate) && (yCoordinate == thisOne.yCoordinate)) 
+        slopeWithThisOne = Double.NEGATIVE_INFINITY;
       else if (yCoordinate == thisOne.yCoordinate) slopeWithThisOne = 0.0;
       else if (xCoordinate == thisOne.xCoordinate) slopeWithThisOne = Double.POSITIVE_INFINITY;
       else slopeWithThisOne = ((double) (thisOne.yCoordinate - yCoordinate)/(double) (thisOne.xCoordinate - xCoordinate));
       
-      if (slopeWithThatOne > slopeWithThisOne) { return +1; }
-      else if (slopeWithThatOne < slopeWithThisOne) { return -1; }
+      if (slopeWithThatOne > slopeWithThisOne) return +1;
+      else if (slopeWithThatOne < slopeWithThisOne) return -1;
       else return 0;
     }
   }
@@ -51,12 +52,12 @@ public class Point implements Comparable<Point> {
   }
   
   public int compareTo(Point that) {
-    if (yCoordinate > that.yCoordinate) { return +1; }
-    else if (yCoordinate < that.yCoordinate) { return -1; }
+    if (yCoordinate > that.yCoordinate) return +1;
+    else if (yCoordinate < that.yCoordinate) return -1;
     else {
-      if (xCoordinate > that.xCoordinate) { return +1; }
-      else if (xCoordinate < that.xCoordinate) { return -1; }
-      else { return 0; }
+      if (xCoordinate > that.xCoordinate) return +1;
+      else if (xCoordinate < that.xCoordinate) return -1;
+      else return 0;
     }
   }
   

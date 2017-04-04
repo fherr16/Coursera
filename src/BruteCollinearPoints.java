@@ -1,8 +1,9 @@
+import java.util.Vector;
 
 public class BruteCollinearPoints {
   
   private int count;
-  private LineSegment[] segments;
+  private Vector<LineSegment> segments;
   
   public BruteCollinearPoints(Point[] points) {
     
@@ -11,7 +12,15 @@ public class BruteCollinearPoints {
     
     int size = points.length;
     count = 0;
-    segments = new LineSegment[size/2];
+    segments = new Vector<LineSegment>();
+    
+    if (size == 3)
+      if (points[0].compareTo(points[1]) == 0 || points[0].compareTo(points[2]) == 0 ||
+          points[1].compareTo(points[2]) == 0)
+        throw new IllegalArgumentException();
+    if (size == 2)
+      if (points[0].compareTo(points[1]) == 0)
+        throw new IllegalArgumentException();
     
     for (int a = 0; a < size - 3; a++)
       for (int b = a + 1; b < size - 2; b++)
@@ -20,32 +29,36 @@ public class BruteCollinearPoints {
             
             if (points[a] == null || points[b] == null || points[c] == null || points[d] == null)
               throw new NullPointerException();
-            if (points[a].compareTo(points[b]) == 0 || points[a].compareTo(points[c]) == 0 || points[a].compareTo(points[d]) == 0 || points[b].compareTo(points[c]) == 0 || points[b].compareTo(points[d]) == 0 || points[c].compareTo(points[d]) == 0)
+            
+            if (points[a].compareTo(points[b]) == 0 || points[a].compareTo(points[c]) == 0 || 
+                points[a].compareTo(points[d]) == 0 || points[b].compareTo(points[c]) == 0 || 
+                points[b].compareTo(points[d]) == 0 || points[c].compareTo(points[d]) == 0)
               throw new IllegalArgumentException();
             
-            if (points[a].slopeTo(points[b]) == points[a].slopeTo(points[c]) && points[a].slopeTo(points[b]) == points[a].slopeTo(points[d])) {
+            if (points[a].slopeTo(points[b]) == points[a].slopeTo(points[c]) && 
+                points[a].slopeTo(points[b]) == points[a].slopeTo(points[d])) {
               
               Point lowest = points[a];
               Point highest = points[a];
              
-              if (lowest.compareTo(points[b]) == 1)
+              if (lowest.compareTo(points[b]) > 0)
                 lowest = points[b];
-              if (lowest.compareTo(points[c]) == 1)
+              if (lowest.compareTo(points[c]) > 0)
                 lowest = points[c];
-              if (lowest.compareTo(points[d]) == 1)
+              if (lowest.compareTo(points[d]) > 0)
                 lowest = points[d];
               
-              if (highest.compareTo(points[b]) == -1)
+              if (highest.compareTo(points[b]) < 0)
                 highest = points[b];
-              if (highest.compareTo(points[c]) == -1)
+              if (highest.compareTo(points[c]) < 0)
                 highest = points[c];
-              if (highest.compareTo(points[d]) == -1)
+              if (highest.compareTo(points[d]) < 0)
                 highest = points[d];
               
               LineSegment l = new LineSegment(lowest, highest);
               
               if (count == 0) {
-                segments[count] = l;
+                segments.add(l);
                 count++;
               }
               else {
@@ -53,7 +66,7 @@ public class BruteCollinearPoints {
                 for (LineSegment s : segments)
                   if (s != null && s.toString().equals(l.toString())) contains = true;
                 if (!contains) {
-                  segments[count] = l;
+                  segments.add(l);
                   count++;
                 }
               }
@@ -68,7 +81,7 @@ public class BruteCollinearPoints {
   public LineSegment[] segments() {
     LineSegment[] finalized = new LineSegment[count];
     for (int i = 0; i < count; i++)
-      finalized[i] = segments[i];
+      finalized[i] = segments.get(i);
     return finalized;
   }
   
