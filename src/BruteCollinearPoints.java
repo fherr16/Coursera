@@ -11,7 +11,7 @@ public class BruteCollinearPoints {
     
     int size = points.length;
     int count = 0;
-    segments = new LineSegment[size/4];
+    segments = new LineSegment[size/3];
     
     for (int a = 0; a < size - 3; a++)
       for (int b = a + 1; b < size - 2; b++)
@@ -26,7 +26,7 @@ public class BruteCollinearPoints {
             if (points[a].slopeTo(points[b]) == points[a].slopeTo(points[c]) && points[a].slopeTo(points[b]) == points[a].slopeTo(points[d])) {
               
               Point lowest = points[a];
-              Point highest = points[d];
+              Point highest = points[a];
              
               if (lowest.compareTo(points[b]) == 1)
                 lowest = points[b];
@@ -35,15 +35,28 @@ public class BruteCollinearPoints {
               if (lowest.compareTo(points[d]) == 1)
                 lowest = points[d];
               
-              if (highest.compareTo(points[a]) == -1)
-                highest = points[a];
               if (highest.compareTo(points[b]) == -1)
                 highest = points[b];
               if (highest.compareTo(points[c]) == -1)
                 highest = points[c];
+              if (highest.compareTo(points[d]) == -1)
+                highest = points[d];
               
-              segments[count] = new LineSegment(lowest, highest);
-              count++;
+              LineSegment L = new LineSegment(lowest, highest);
+              
+              if (count == 0) {
+                segments[count] = L;
+                count++;
+              }
+              else {
+                boolean contains = false;
+                for (LineSegment S : segments)
+                  if (S != null && S.toString().equals(L.toString())) contains = true;
+                if (!contains) {
+                  segments[count] = L;
+                  count++;
+                }
+              }
             }
           }
   }
@@ -58,25 +71,22 @@ public class BruteCollinearPoints {
   
   public static void main(String[] args) {
     Point a,b,c,d,e,f,g,h,i,j;
-    Point[] points = new Point[9];
-    a = new Point(0, 0);
-    points[0] = a;
+    Point[] points = new Point[7];
     b = new Point(1, 1);
-    points[1] = b;
+    points[0] = b;
     c = new Point(2, 2);
-    points[2] = c;
+    points[1] = c;
     d = new Point(3, 3);
-    points[3] = d;
+    points[2] = d;
     e = new Point(4, 4);
-    points[4] = e;
+    points[3] = e;
     f = new Point(7, 1);
-    points[5] = f;
+    points[4] = f;
     g = new Point(6, 2);
-    points[6] = g;
+    points[5] = g;
     h = new Point(5, 3);
-    points[7] = h;
-    i = new Point(3,5);
-    points[8] = i;
+    points[6] = h;
+
 
    BruteCollinearPoints fast = new BruteCollinearPoints(points);
    

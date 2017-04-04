@@ -6,6 +6,10 @@ public class FastCollinearPoints {
   public LineSegment[] segments;
   
   public FastCollinearPoints(Point[] points) {
+    
+    if (points == null)
+      throw new NullPointerException();
+    
     segments = new LineSegment[points.length/4];
     
     for (int i = 0; i < points.length; i++) {
