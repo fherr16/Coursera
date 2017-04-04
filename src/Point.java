@@ -14,16 +14,16 @@ public class Point implements Comparable<Point> {
       if ((xCoordinate == thatOne.xCoordinate) && (yCoordinate == thatOne.yCoordinate)) slopeWithThatOne = Double.NEGATIVE_INFINITY;
       else if (yCoordinate == thatOne.yCoordinate) slopeWithThatOne = 0.0;
       else if (xCoordinate == thatOne.xCoordinate) slopeWithThatOne = Double.POSITIVE_INFINITY;
-      else slopeWithThatOne = ((thatOne.yCoordinate - yCoordinate)/(thatOne.xCoordinate - xCoordinate));
+      else slopeWithThatOne = ((double)(thatOne.yCoordinate - yCoordinate)/(double)(thatOne.xCoordinate - xCoordinate));
       
       if ((xCoordinate == thisOne.xCoordinate) && (yCoordinate == thisOne.yCoordinate)) slopeWithThisOne = Double.NEGATIVE_INFINITY;
       else if (yCoordinate == thisOne.yCoordinate) slopeWithThisOne = 0.0;
       else if (xCoordinate == thisOne.xCoordinate) slopeWithThisOne = Double.POSITIVE_INFINITY;
-      else slopeWithThisOne = ((thisOne.yCoordinate - yCoordinate)/(thisOne.xCoordinate - xCoordinate));
+      else slopeWithThisOne = ((double)(thisOne.yCoordinate - yCoordinate)/(double)(thisOne.xCoordinate - xCoordinate));
       
       if (slopeWithThatOne > slopeWithThisOne) { return +1; }
       else if (slopeWithThatOne < slopeWithThisOne) { return -1; }
-      else { return 0; }
+      else return 0;
     }
   }
   
@@ -33,32 +33,32 @@ public class Point implements Comparable<Point> {
   }
   
   public void draw() {
-    StdDraw.point(this.xCoordinate, this.yCoordinate);
+    StdDraw.point(xCoordinate, yCoordinate);
   }
   
   public void drawTo(Point that) {
-    StdDraw.line(this.xCoordinate, this.yCoordinate, that.xCoordinate, that.yCoordinate);
+    StdDraw.line(xCoordinate, yCoordinate, that.xCoordinate, that.yCoordinate);
   }
   
   public String toString() {
-    return "(" + this.xCoordinate + ", " + this.yCoordinate + ")";
+    return "(" + xCoordinate + ", " + yCoordinate + ")";
   }
   
   public int compareTo(Point that) {
-    if (this.yCoordinate > that.yCoordinate) { return +1; }
-    else if (this.yCoordinate < that.yCoordinate) { return -1; }
+    if (yCoordinate > that.yCoordinate) { return +1; }
+    else if (yCoordinate < that.yCoordinate) { return -1; }
     else {
-      if (this.xCoordinate > that.xCoordinate) { return +1; }
-      else if (this.xCoordinate < that.xCoordinate) { return -1; }
+      if (xCoordinate > that.xCoordinate) { return +1; }
+      else if (xCoordinate < that.xCoordinate) { return -1; }
       else { return 0; }
     }
   }
   
   public double slopeTo(Point that) {
-    if ((this.xCoordinate == that.xCoordinate) && (this.yCoordinate == that.yCoordinate)) return Double.NEGATIVE_INFINITY;
-    else if (this.yCoordinate == that.yCoordinate) return 0.0;
-    else if (this.xCoordinate == that.xCoordinate) return Double.POSITIVE_INFINITY;
-    else return ((that.yCoordinate - this.yCoordinate)/(that.xCoordinate - this.xCoordinate));
+    if ((xCoordinate == that.xCoordinate) && (yCoordinate == that.yCoordinate)) return Double.NEGATIVE_INFINITY;
+    else if (yCoordinate == that.yCoordinate) return 0.0;
+    else if (xCoordinate == that.xCoordinate) return Double.POSITIVE_INFINITY;
+    else return ((double)(that.yCoordinate - yCoordinate)/(double)(that.xCoordinate - xCoordinate));
   }
   
   public Comparator<Point> slopeOrder() {
