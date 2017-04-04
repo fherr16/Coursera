@@ -10,8 +10,8 @@ public class BruteCollinearPoints {
       throw new NullPointerException();
     
     int size = points.length;
-    int count = 0;
-    segments = new LineSegment[size/3];
+    count = 0;
+    segments = new LineSegment[size/2];
     
     for (int a = 0; a < size - 3; a++)
       for (int b = a + 1; b < size - 2; b++)
@@ -42,18 +42,18 @@ public class BruteCollinearPoints {
               if (highest.compareTo(points[d]) == -1)
                 highest = points[d];
               
-              LineSegment L = new LineSegment(lowest, highest);
+              LineSegment l = new LineSegment(lowest, highest);
               
               if (count == 0) {
-                segments[count] = L;
+                segments[count] = l;
                 count++;
               }
               else {
                 boolean contains = false;
-                for (LineSegment S : segments)
-                  if (S != null && S.toString().equals(L.toString())) contains = true;
+                for (LineSegment s : segments)
+                  if (s != null && s.toString().equals(l.toString())) contains = true;
                 if (!contains) {
-                  segments[count] = L;
+                  segments[count] = l;
                   count++;
                 }
               }
@@ -66,33 +66,33 @@ public class BruteCollinearPoints {
   }
   
   public LineSegment[] segments() {
-    return segments;
+    LineSegment[] finalized = new LineSegment[count];
+    for (int i = 0; i < count; i++)
+      finalized[i] = segments[i];
+    return finalized;
   }
   
-  public static void main(String[] args) {
-    Point a,b,c,d,e,f,g,h,i,j;
-    Point[] points = new Point[7];
-    b = new Point(1, 1);
-    points[0] = b;
-    c = new Point(2, 2);
-    points[1] = c;
-    d = new Point(3, 3);
-    points[2] = d;
-    e = new Point(4, 4);
-    points[3] = e;
-    f = new Point(7, 1);
-    points[4] = f;
-    g = new Point(6, 2);
-    points[5] = g;
-    h = new Point(5, 3);
-    points[6] = h;
-
-
-   BruteCollinearPoints fast = new BruteCollinearPoints(points);
-   
-   LineSegment[] segs = fast.segments();
-   for (LineSegment s : segs)
-     System.out.println(s);
-  }
+//  public static void main(String[] args) {
+//    Point a,b,c,d,e,f,g,h,i,j;
+//    Point[] points = new Point[7];
+//    b = new Point(1, 1);
+//    points[0] = b;
+//    c = new Point(2, 2);
+//    points[1] = c;
+//    d = new Point(3, 3);
+//    points[2] = d;
+//    e = new Point(4, 4);
+//    points[3] = e;
+//    f = new Point(7, 1);
+//    points[4] = f;
+//    g = new Point(6, 2);
+//    points[5] = g;
+//    h = new Point(5, 3);
+//    points[6] = h;
+//   BruteCollinearPoints fast = new BruteCollinearPoints(points); 
+//   LineSegment[] segs = fast.segments();
+//   for (LineSegment s : segs)
+//     System.out.println(s);
+//  }
   
 }
